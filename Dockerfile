@@ -24,8 +24,8 @@ RUN patch -p1 -u -d /usr/share/h5ai/_h5ai/private/php/core/ -i /class-setup.php.
 
 # add default configuration for nginx
 RUN rm /etc/nginx/sites-enabled/default
-ADD h5ai.nginx.conf /etc/nginx/sites-available/h5ai
-RUN ln -s /etc/nginx/sites-available/h5ai /etc/nginx/sites-enabled/h5ai
+ADD h5ai.nginx.conf /etc/nginx/sites-available/h5ai.conf
+RUN ln -s /etc/nginx/sites-available/h5ai.conf /etc/nginx/sites-enabled/h5ai.conf
 
 # make the cache writable
 RUN chown ${HTTPD_USER} /usr/share/h5ai/_h5ai/public/cache/
@@ -36,7 +36,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 CMD supervisord -c /etc/supervisor/conf.d/supervisord.conf
 
 # expose only nginx HTTP port
-EXPOSE 80 443
+EXPOSE 80
 
 # expose path
 VOLUME /var/www
