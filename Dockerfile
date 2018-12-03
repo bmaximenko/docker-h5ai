@@ -1,14 +1,17 @@
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 MAINTAINER Paul Valla <paul.valla+docker@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV HTTPD_USER www-data
 
 RUN apt-get update && apt-get install -y \
-  nginx php5-fpm supervisor \
+  nginx php7.2-fpm supervisor \
   wget unzip patch acl \
-  libav-tools imagemagick \
-  graphicsmagick zip unzip php5-gd
+  ffmpeg  imagemagick \
+  graphicsmagick zip unzip php7.2-gd
+
+# mkdir for php7 fpm
+RUN mkdir /run/php
 
 # install h5ai and patch configuration
 ENV H5AI_VERSION 0.29.0+002~140eb30
